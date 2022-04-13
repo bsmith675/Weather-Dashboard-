@@ -31,3 +31,9 @@ function showCityList(cityList) {
     }
     $(`#cityListGroup`).html(varText);
 }
+
+function updateCityList(currentCityname) {
+    cityList.indexOf(currentCityName) === -1 ? cityList.push(currentCityName) : console.log("City already on list")
+    localStorage.setItem("cityList", JSON.stringify(cityList));
+    showCityList(cityList);
+}
