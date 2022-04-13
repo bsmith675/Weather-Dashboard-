@@ -109,6 +109,20 @@ function handleSearchFormSubmit(event) {
     searchApi(searchInputVal);
 }
 
+function loadCityList(cityList) {
+    cityList = JSON.parse(localStorage.getItem("cityList"));
+    if(!cityList) {
+        console.log("- No Saved information");
+        cityList=[];
+        return cityList;
+    }
+    return cityList;
+}
+searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+
+cityList = loadCityList(cityList);
+searchApi("New York")
+
         
         
             
