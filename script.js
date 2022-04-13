@@ -37,3 +37,39 @@ function updateCityList(currentCityname) {
     localStorage.setItem("cityList", JSON.stringify(cityList));
     showCityList(cityList);
 }
+
+function searchApi2(varLat, varLon, currentCityname) {
+    var locQueryUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=`+varLat+`&lon=`+varLon+`&exclude=hourly&units=imperia&appid=23b89ccd37ecfa0524d0c35eae3690f8`;
+    fetch(locQueryUrl)
+        .then(function (response) {
+            console.log(response)
+            if (!response.ok) {
+                throw response.json();
+            }
+            console.log(response.json)
+            return response.json();
+        })
+        .then(function (locRes) {
+            console.log(locRes);
+            weather = [];
+            updateCityList(currentCityName);
+            for (var i = 0; i < 7; i++) {
+                var wDay = {
+                    "date":locRes.daily[i].dt,
+                    "temp":locRes.daily[i].temp.day+` °F`,
+                    "hum":locRes.daily[i].humidity+`%`,
+                    "wind":locRes.daily[i].wind_speed+` MPH`,
+                    "UV":locRes.daily[i].uvi,
+                    "icon":`https://openweathermap.org/img/wn/`+locRes.daily[i].weather[0].icon+`.png`
+                }
+            wDay.date=wDay.date * 1000;
+            const dateObject = new Date(wDay.date);
+            wDay.date=dateObject.toLocaleDateSpring();
+            weather.push(wDay);
+            }
+            displayWeather(weather);
+        })
+        .catch(function (error) {
+            console.error(error);
+        }); 
+    }
