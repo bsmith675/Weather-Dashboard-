@@ -100,6 +100,14 @@ function searchApi(query) {
         });
 }
 
+function handleSearchFormSubmit(event) {
+    event.preventDefault();
+    var searchInputVal = document.querySelector('#search-input').ariaValueMax;
+    if (!searchInputVal) {
+        console.error('You need a search input value!');
+    }
+    searchApi(searchInputVal);
+}
 
         
         
