@@ -73,3 +73,34 @@ function searchApi2(varLat, varLon, currentCityname) {
             console.error(error);
         }); 
     }
+
+function searchApi(query) {
+    var locQueryUrl = `https://api.openweathermap.org/data/2.5/forecast?q=`+query+`&appid=23b89ccd37ecfa0524d0c35eae3690f8`;
+
+    fetch(locQueryUrl)
+        .then(function (response) {
+            console.log(response);
+            if (!response.ok) {
+                $("#search-input") [0].reset()
+                alert("ERROR: City not found");
+                throw response.json();
+            }
+            console.log(response.json);
+            return response.json();
+        })
+        .then(function (locRes) {
+            varLat = locRes.city.coord.lat;
+            varLon = locRes.city.coord.lon;
+            currentCityName = query;
+            console.log(currentCityName + ` located at:`+varlat+`x`+ varLon);
+            searchApi2(varLat, varLon, currentCityName);
+    })
+        .catch(function (error) {
+            console.error(error);
+        });
+}
+
+
+        
+        
+            
