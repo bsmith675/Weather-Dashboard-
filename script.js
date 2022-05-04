@@ -96,7 +96,7 @@ function searchApi(query) {
             searchApi2(varLat, varLon, currentCityName);
     })
         .catch(function (error) {
-            console.error(error);
+            console.error;
         });
 }
 
